@@ -48,6 +48,6 @@ function updateCardDisplay() {
 function fillImagePaths() {
     imagePaths = [];
     for (let i = 1; i <= 100; i++) {
-        imagePaths.push(`/img/card-${i}.png`);
+        imagePaths.push(`img/card-${i}.png`);
     }
 }
