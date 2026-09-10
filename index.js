@@ -5,7 +5,18 @@ let selectedImage = "";
 document.addEventListener("DOMContentLoaded", () => {
     fillImagePaths();
     randomizeImage();
+    setupImageInteractions();
 });
+
+function setupImageInteractions() {
+    const cardImg = document.getElementById("card-img");
+    cardImg.addEventListener("click", () => {
+        cardImg.classList.remove("pop");
+        void cardImg.offsetWidth;
+        cardImg.classList.add("pop");
+        cardImg.classList.toggle("expanded");
+    });
+}
 
 // Randomize and display a new card
 function randomizeImage() {
@@ -26,7 +37,11 @@ function searchCard() {
 
 // Update the card display
 function updateCardDisplay() {
-    document.getElementById("card-img").src = selectedImage;
+    const cardImg = document.getElementById("card-img");
+    cardImg.classList.remove("reveal");
+    cardImg.src = selectedImage;
+    void cardImg.offsetWidth;
+    cardImg.classList.add("reveal");
 }
 
 // Fill image paths (mocked for simplicity)

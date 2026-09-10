@@ -33,6 +33,7 @@ body {
 /* Card Image */
 .card-image {
     margin: 20px 0;
+    perspective: 1000px;
 }
 
 .card-img {
@@ -40,23 +41,39 @@ body {
     max-width: 300px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    animation: revealCard 1s ease-in-out;
+    animation: revealCard 0.8s ease-in-out;
     cursor: pointer;
-    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    will-change: transform;
+}
+
+.card-img:hover {
+    transform: scale(1.04) rotate(-0.8deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65);
+    filter: brightness(1.08);
+}
+
+.card-img.pop {
+    animation: clickPop 0.35s ease;
+}
+
+.card-img.reveal {
+    animation: revealCard 0.8s ease-in-out;
 }
 
 .card-img.expanded {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1.5);
+    transform: translate(-50%, -50%) scale(1.35);
     width: auto;
     height: auto;
-    max-width: 70%;
-    max-height: 70%;
+    max-width: 70vw;
+    max-height: 70vh;
     z-index: 1000;
-    border-radius: 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85);
+    animation: zoomPulse 0.55s ease;
 }
 
 /* Buttons */
@@ -104,12 +121,36 @@ button:hover {
 
 @keyframes revealCard {
     from {
-        transform: scale(0.8) rotateY(90deg);
+        transform: scale(0.86) rotateY(70deg);
         opacity: 0;
     }
     to {
         transform: scale(1) rotateY(0deg);
         opacity: 1;
+    }
+}
+
+@keyframes clickPop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes zoomPulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.4);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.35);
     }
 }
 
