@@ -38,6 +38,8 @@ function searchCard() {
 // Update the card display
 function updateCardDisplay() {
     const cardImg = document.getElementById("card-img");
+    const currentNumber = document.getElementById("current-number");
+    currentNumber.textContent = imagePaths.indexOf(selectedImage) + 1;
     cardImg.classList.remove("reveal");
     cardImg.src = selectedImage;
     void cardImg.offsetWidth;
