@@ -76,6 +76,19 @@ body {
     animation: zoomPulse 0.55s ease;
 }
 
+.card-orientation {
+    min-height: 1.2em;
+    margin: 0;
+    color: #ffd166;
+    font-weight: bold;
+}
+
+.invert-toggle {
+    display: block;
+    margin: 10px 0 20px;
+    color: #ffd166;
+}
+
 /* Buttons */
 button {
     cursor: pointer;

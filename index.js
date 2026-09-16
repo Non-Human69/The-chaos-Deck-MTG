@@ -1,11 +1,12 @@
-let imagePaths = [];
-let selectedImage = "";
+let cards = [];
+let selectedCard = null;
 
 // Initialize the app
 document.addEventListener("DOMContentLoaded", () => {
-    fillImagePaths();
+    fillCards();
     randomizeImage();
     setupImageInteractions();
+    document.getElementById("include-inverted").addEventListener("change", randomizeImage);
 });
 
 function setupImageInteractions() {
@@ -20,8 +21,9 @@ function setupImageInteractions() {
 
 // Randomize and display a new card
 function randomizeImage() {
-    const randomIndex = Math.floor(Math.random() * imagePaths.length);
-    selectedImage = imagePaths[randomIndex];
+    const availableCards = getAvailableCards();
+    const randomIndex = Math.floor(Math.random() * availableCards.length);
+    selectedCard = availableCards[randomIndex];
     updateCardDisplay();
 }
 
@@ -29,8 +31,10 @@ function randomizeImage() {
 function searchCard() {
     const searchInput = document.getElementById("search-input").value;
     const index = parseInt(searchInput, 10) - 1; // Adjust for 0-based index
-    if (index >= 0 && index < imagePaths.length) {
-        selectedImage = imagePaths[index];
+    const matchingCards = getAvailableCards().filter(card => card.number === index + 1);
+    if (matchingCards.length > 0) {
+        const randomIndex = Math.floor(Math.random() * matchingCards.length);
+        selectedCard = matchingCards[randomIndex];
         updateCardDisplay();
     }
 }
@@ -39,17 +43,26 @@ function searchCard() {
 function updateCardDisplay() {
     const cardImg = document.getElementById("card-img");
     const currentNumber = document.getElementById("current-number");
-    currentNumber.textContent = imagePaths.indexOf(selectedImage) + 1;
+    const cardOrientation = document.getElementById("card-orientation");
+    currentNumber.textContent = selectedCard.number;
+    cardOrientation.textContent = selectedCard.isInverted ? "Inverted card" : "Normal card";
+    cardImg.alt = selectedCard.isInverted ? "Inverted card" : "Random card";
     cardImg.classList.remove("reveal");
-    cardImg.src = selectedImage;
+    cardImg.src = selectedCard.path;
     void cardImg.offsetWidth;
     cardImg.classList.add("reveal");
 }
 
-// Fill image paths (mocked for simplicity)
-function fillImagePaths() {
-    imagePaths = [];
+function getAvailableCards() {
+    const includeInverted = document.getElementById("include-inverted").checked;
+    return includeInverted ? cards : cards.filter(card => !card.isInverted);
+}
+
+// Build the normal and inverted 100-card pools.
+function fillCards() {
+    cards = [];
     for (let i = 1; i <= 100; i++) {
-        imagePaths.push(`img/card-${i}.png`);
+        cards.push({ number: i, path: `img/card-${i}.png`, isInverted: false });
+        cards.push({ number: i, path: `img_invert/card-${i}.png`, isInverted: true });
     }
 }

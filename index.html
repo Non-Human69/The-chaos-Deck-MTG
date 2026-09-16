@@ -9,15 +9,20 @@
 <body>
 <div class="container">
     <section class="header">
-        <h1>Num:<span id="current-number">0</span></h1>
+        <h1><span id="current-number">0</span></h1>
+        <p id="card-orientation" class="card-orientation" aria-live="polite"></p>
     </section>
     <section class="card-image">
         <img class="card-img" id="card-img" src="" alt="Random Card">
     </section>
     <button class="btn-random" onclick="randomizeImage()">Random New Card</button>
+    <label class="invert-toggle">
+        <input id="include-inverted" type="checkbox">
+        Include inverted cards (200-card deck)
+    </label>
     <section class="search-card">
         <label for="search-input">Search a card:</label>
-        <input id="search-input" type="number">
+        <input id="search-input" type="number" min="1" max="100">
         <button class="btn-search" onclick="searchCard()">Search by Number</button>
     </section>
 </div>
