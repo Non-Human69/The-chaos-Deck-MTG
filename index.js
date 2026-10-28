@@ -1,5 +1,11 @@
 let cards = [];
 let selectedCard = null;
+const invertedCardNumbers = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+    39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 71,
+    73, 75, 81, 83, 87, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100
+];
 
 // Initialize the app
 document.addEventListener("DOMContentLoaded", () => {
@@ -63,6 +69,9 @@ function fillCards() {
     cards = [];
     for (let i = 1; i <= 100; i++) {
         cards.push({ number: i, path: `img/card-${i}.png`, isInverted: false });
-        cards.push({ number: i, path: `img_invert/card-${i}.png`, isInverted: true });
+    }
+
+    for (const cardNumber of invertedCardNumbers) {
+        cards.push({ number: cardNumber, path: `img_invert/card-${cardNumber}.png`, isInverted: true });
     }
 }
